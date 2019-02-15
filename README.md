@@ -21,4 +21,4 @@ echo [word]- Print the given word, followed by a ’\n’. The following special
 
 exit- Exit the current shell.
 
-I will implement as much of the popular unix commamds on the command line as possible. 
+I will implement as much of the popular unix commamds on the command line as possible.

@@ -10,6 +10,14 @@ def ErrorMessage(msg):
   print msg
   sys.exit(0);
 
+#Method used to support built-in functions if asked by the user
+
+def Builtins():
+
+  commands = ["cd", "exit", "echo"]
+
+   
+
 #Method defined to execute basic common unix commands
 def Execute():
 
@@ -41,4 +49,7 @@ def Execute():
     line = raw_input("sish$ ")
 
 # Program execution begins here
+
+print("\n\n\t*********MY SHELL*********");
+ 
 Execute()

@@ -1,10 +1,10 @@
 I will support the following:
 
-sh will support basic linux/unix commands such as ls, date, echo, pwd, cat, etc.
+sish will support basic linux/unix commands such as ls, date, echo, pwd, cat, etc.
 
 Redirection:
 
-sh supports the following three input-/output- redirection operators:
+sish supports the following three input-/output- redirection operators:
 
 > file Redirect standard output to file.
 >> file Append standard output to file. 
@@ -12,7 +12,7 @@ sh supports the following three input-/output- redirection operators:
 
 Builtins:
 
-sh will support the following builtins (which will take precedence over any non-builtin commands):
+sish will support the following builtins (which will take precedence over any non-builtin commands):
 
 cd [dir]- Change the current working directory. If dir is not specified, change to the user’s home
           directory.

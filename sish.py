@@ -3,53 +3,84 @@ import sys
 import os
 import errno
  
-#Method defined to produce error messages for system call failures and other errors
+#Produce error messages for system call failures and other errors
 
 def ErrorMessage(msg):
 
   print msg
   sys.exit(0);
 
-#Method used to support built-in functions if asked by the user
+#This Method supports a few built-in functions if requested by the user
+def Builtins(tokens):
 
-def Builtins():
+  isbuiltin = False
+  
+  if(tokens[0] == "exit"):
+     isbuiltin = True
+     sys.exit()
 
-  commands = ["cd", "exit", "echo"]
+  elif(tokens[0] == "cd"):
+     
+    if(len(tokens) == 1):
+    
+      try: 
+        os.chdir('/home') 
+        isbuiltin = True
+        
+      except OSError as e: 
+        ErrorMessage(e.strerror)
+    
+    else:
+    
+      try:
+        os.chdir(tokens[1])
+        isbuiltin = True
 
+      except OSError as e:        
+        ErrorMessage(e.strerror) 
    
+    return isbuiltin
+  
 
 #Method defined to execute basic common unix commands
 def Execute():
 
   line = raw_input("sish$ ")
-
-  while(line != "exit"):
   
+  isbuiltin = False
+ 
+  while(True):
+  
+    line = raw_input("sish$ ")
     #Parse the line into tokens with white space as the delimiter
     
     tokens = line.split()
-  
-    try:
-      pid = os.fork()
- 
-    except OSError as e:
-      ErrorMessage(e.strerror)  
 
-    if pid == 0:
+    #Check for built-ins first
+    if(Builtins(tokens)):
+       continue
     
-      try:      
-        os.execvp(tokens[0],tokens)
-     
-      except OSError as e:
-	ErrorMessage(e.strerror)
-  
     else:
-      os.waitpid(0,0)
+    
+       try:
+         pid = os.fork()
+       except OSError as e:
+         print e.strerror   
+
+       if pid == 0:    
+         try:
+           os.execvp(tokens[0],tokens)
+         except OSError as e:
+           print e.strerror
+       
+       else:
+         os.waitpid(0,0)
   
-    line = raw_input("sish$ ")
+ #   line = raw_input("sish$ ")
 
 # Program execution begins here
 
-print("\n\n\t*********MY SHELL*********");
+
+print("\n\n\t*********MY SHELL*********")
  
-Execute()
+Execute()  

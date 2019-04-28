@@ -1,0 +1,11 @@
+Commands I have used to test code:
+
+man
+ls
+ls -l
+ls -a
+date 
+who
+pwd
+cd
+cd DIR
